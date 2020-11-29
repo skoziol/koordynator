@@ -1,18 +1,18 @@
 <template>
   Załączniki
     <div class="file-section">
-      <div class="comment" v-for="comment in fileList" :key="comment">
+      <div class="file" v-for="file in fileList" :key="file">
         <img src="@/assets/doc.png" width="80" height="60" style="margin:0 10px">
         <div class="about">
           <span class="name">
-            sample{{comment.id}}.doc
+            sample{{file.id}}.doc
           </span>
           <div class="creator">
-           Dodano: {{comment.time}},
-            <span style="text-decoration:underline" @click="editComment(comment.id)">Edytuj</span>
-            <span style="text-decoration:underline" @click="deleteComment(comment.id)">Usuń</span>
+           Dodano: {{file.time}},
+            <span style="text-decoration:underline" @click="editFile(file.id)">Edytuj</span>
+            <span style="text-decoration:underline" @click="deleteFile(file.id)">Usuń</span>
           </div>
-          <span class="who">{{comment.addedBy}}</span>
+          <span class="who">{{file.addedBy}}</span>
         </div>
       </div>
       <div class="addFile">
@@ -28,8 +28,7 @@ export default {
    data () {
     return {
       fileList: [],
-      fileID: 0,
-      editedComment: ''
+      fileID: 0
     }
   },
   methods: {
@@ -41,26 +40,14 @@ export default {
           time: moment().locale('pl').format('DD-MM-YYYY, HH:mm:ss '),
           editMode: false
         })
-      this.comment = ''
       this.fileID++
     },
-    deleteComment(id) {
-      const commenttoDelete = this.fileList.find(c => c.id == id)
-      this.fileList.splice(this.fileList.indexOf(commenttoDelete), 1)
+    deleteFile(id) {
+      const FiletoDelete = this.fileList.find(c => c.id == id)
+      this.fileList.splice(this.fileList.indexOf(FiletoDelete), 1)
     },
-    editComment() {
+    editFile() {
       console.log('edit')
-    },
-    saveEditComment(isChange) {
-      if(isChange) {
-        const editingComment = this.fileList.find(c => c.editMode == true)
-        editingComment.content = this.editedComment;
-        editingComment.editMode = false
-      }
-    },
-    cancelEdit(){
-      const editingComment = this.fileList.find(c => c.editMode == true)
-      editingComment.editMode = false
     }
   }
 }
@@ -74,12 +61,14 @@ export default {
   align-items: center;
   justify-content: flex-start;
 
-  .comment{
+  .file{
     display:flex;
     align-items: center;
     justify-content: flex-start;
     height: min-content;
     width: 100%;
+    margin: 10px 0;
+
     .about{
       display:flex;
       flex-direction: column;
