@@ -16,11 +16,11 @@
         <CommentSection/>
       </div>
       <div class="column">
-        <button>-> Odeślij do projektu</button>
-        <button>Zakończ i zaakceptuj</button>
-        <button>Zakończ i odrzuć</button>
-        <button>Sample</button>
-        <button>Sample</button>
+        <button class="sample">-> Odeślij do projektu</button>
+        <button class="sample">Zakończ i zaakceptuj</button>
+        <button class="sample">Zakończ i odrzuć</button>
+        <button class="sample">Sample</button>
+        <button class="sample">Sample</button>
 
         <FilesSection/>
       </div>
@@ -91,7 +91,7 @@ export default {
         display:flex;
         flex-direction: column;
         flex-basis: 30%;
-        background: lightgrey;
+        border: 1px lightgrey solid;
         height:100%;
 
         &+.column{

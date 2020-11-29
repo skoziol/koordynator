@@ -17,6 +17,17 @@ export default {
 body{
   background: grey;
 
+  button{
+    border: none;
+    display:flex;
+
+    &.sample{
+      margin: 2px 5px;
+      height: 35px;
+    }
+    outline: none;
+  }
+
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     display:flex;
