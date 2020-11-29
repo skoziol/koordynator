@@ -1,14 +1,11 @@
 <template>
-  <h3>Komentarze</h3>
+    <h3>Komentarze</h3>
+    <div class="addComment"> 
+      <textarea @show="focus" rows="4" v-model="comment"></textarea>
+      <button @click="addComment()" :class="{active: comment.length > 0}" style="width: 150px;">Dodaj Komentarz</button>
+    </div>
+
     <div class="comment-section">
-      <div class="addComment" :class="{isFocused: gondor, notFocused: !gondor}"> 
-        <button v-show="!gondor" @click="gondor = true">Dodaj Komentarz</button>
-        <textarea v-show="gondor" @show="focus" rows="4" v-model="comment"></textarea>
-        <div class="row">
-          <button @click="addComment()" :class="{active: comment.length > 0}" v-show="gondor">Dodaj</button>
-          <button @click="gondor = false; comment='';" v-show="gondor">Anuluj</button>
-        </div>
-      </div>
       <div class="comment" v-for="comment in commentList" :key="comment">
         <div class="avatar">
           <img src="https://via.placeholder.com/30">
@@ -46,8 +43,7 @@ export default {
       comment:'',
       commentList: [],
       commentId: 0,
-      editedComment: '',
-      gondor: false
+      editedComment: ''
     }
   },
   methods: {
@@ -63,7 +59,6 @@ export default {
         })
       this.comment = ''
       this.commentId++
-      this.gondor = false
     },
     deleteComment(id) {
       const commenttoDelete = this.commentList.find(c => c.id == id)
@@ -90,13 +85,38 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .addComment{
+    display:flex;
+    align-self: flex-start;
+    flex-direction: column;
+    position: relative;
+    margin: 10px 0 ;
+
+
+    button{
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      font-weight: 500;
+      height: 30px;
+      width: 60px;
+      transition: 0.25s ease;
+      margin-top: 10px;
+      &.active{
+        background: #2196F3;
+        color: white;
+      }
+    }
+  } 
+
 .comment-section{
   flex-grow:1;
-  margin: 0 20px;
   display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  overflow: auto;
+  max-height:600px;
 
   .comment{
     display:flex;
@@ -151,55 +171,5 @@ export default {
       }
     }
   }
-  
-  .addComment{
-    display:flex;
-    align-self: flex-start;
-    flex-direction: column;
-    position: relative;
-    margin: 10px 0 ;
-
-    .row{
-      display:flex;
-
-      button{
-        &+button{
-          margin-left:10px;
-        }
-      }
-    }
-
-    &.isFocused{
-      button{
-        align-items: center;
-        justify-content: center;
-        font-size: 17px;
-        font-weight: 500;
-        height: 30px;
-        width: 60px;
-        transition: 0.25s ease;
-        margin-top: 10px;
-        &.active{
-          background: #2196F3;
-          color: white;
-        }
-      }
-    } 
-
-    &.notFocused{
-      button{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        background: lightgray;
-        font-size: 16px;
-        color: black;
-        height: 30px;
-        width: 150px;
-        
-      }
-    }
-  } 
 }
 </style>

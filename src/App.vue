@@ -15,7 +15,7 @@ export default {
 
 <style lang='scss'>
 body{
-  background: grey;
+  background: lightgray;
 
   button{
     border: none;

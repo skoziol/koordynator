@@ -9,14 +9,16 @@
         <span v-if="taskList.length > 0">{{(completedTasks/taskList.length * 100).toFixed(0)}}%</span>
         <progress :max="taskList.length" :value="completedTasks" v-if="taskList.length > 0"></progress>
       </div>
-      <div class="task" v-for="task in taskList" :key="task" :class="{hide: !showCompleteElements && task.status}">
-        <input ref="taskCheckbox" type="checkbox" v-model="task.status" @change="taskCompeted(task.status)">
-        <span :class="{'line-through': task.status}" v-if="!task.editMode" @click="editTask(task.id)">{{task.name}}</span>
-        <input type="text" v-model="mordor" class="mordor" @blur="cancelTimeoutEdit"  v-else>
-        <button v-if="!task.editMode" @click="attachExpert">przypisz do experta</button>
-        <button v-if="task.editMode" @click="saveEdit(mordor !== task.name)">zapisz</button>
-        <button v-if="task.editMode" @click="cancelEdit()">anuluj</button>
-        <button v-if="task.editMode" @click="deleteThis()">delete</button>
+      <div class="scroll">
+        <div class="task" v-for="task in taskList" :key="task" :class="{hide: !showCompleteElements && task.status}">
+          <input ref="taskCheckbox" type="checkbox" v-model="task.status" @change="taskCompeted(task.status)">
+          <span :class="{'line-through': task.status}" v-if="!task.editMode" @click="editTask(task.id)">{{task.name}}</span>
+          <input type="text" v-model="mordor" class="mordor" @blur="cancelTimeoutEdit"  v-else>
+          <button v-if="!task.editMode" @click="attachExpert">Odeślij do experta</button>
+          <button v-if="task.editMode" @click="saveEdit(mordor !== task.name)">zapisz</button>
+          <button v-if="task.editMode" @click="cancelEdit()">anuluj</button>
+          <button v-if="task.editMode" @click="deleteThis()">delete</button>
+        </div>
       </div>
       <div class="addTask" :class="{isFocused: newTask, notFocused: !newTask}">
         <input type="text" placeholder="Dodaj zadanie" v-model="newTaskName" @focus="newTask = true" v-show="!newTask">
@@ -130,6 +132,10 @@ export default {
     }
   }
 
+  .scroll{
+    max-height: 250px;
+    overflow: auto;
+
   .task{
     display:flex;
     align-items: center;
@@ -153,6 +159,7 @@ export default {
       background:  none;
       text-decoration: underline;
     }
+  }
   }
 
   .addTask{

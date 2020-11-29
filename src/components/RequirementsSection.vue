@@ -10,17 +10,19 @@
         <span v-if="requirementsList.length > 0">{{completedRequirements/requirementsList.length * 100}}%</span>
         <progress :max="requirementsList.length" :value="completedRequirements" v-if="requirementsList.length > 0"></progress>  
       </div>
-      <div class="requirement" v-for="requirement in requirementsList" :key="requirement" :class="{hide: !showCompleteElements && requirement.status}">
-        <div class="requirement-info">
-          <input type="checkbox" v-model="requirement.status" @change="requirementCompleted(requirement.status)">
-          <span v-if="!requirement.editMode" :class="{'line-through': requirement.status}" @click="editRequirement(requirement.id)">{{requirement.name}}</span>
-          <input type="text" v-model="gryfindor" @blur="cancelTimeoutEdit" v-else>
-          <button v-if="requirement.editMode" @click="saveEdit(gryfindor !== requirement.name)">zapisz</button>
-          <button v-if="requirement.editMode" @click="cancelEdit()">anuluj</button>
-          <button v-if="requirement.editMode" @click="deleteThis()">delete</button>
-        </div>
-        <div class="requirement-detail">
-          {{slytherin}} {{requirement.addedBy}}, {{requirement.time}}
+      <div class="scroll">
+        <div class="requirement" v-for="requirement in requirementsList" :key="requirement" :class="{hide: !showCompleteElements && requirement.status}">
+          <div class="requirement-info">
+            <input type="checkbox" v-model="requirement.status" @change="requirementCompleted(requirement.status)">
+            <span v-if="!requirement.editMode" :class="{'line-through': requirement.status}" @click="editRequirement(requirement.id)">{{requirement.name}}</span>
+            <input type="text" v-model="gryfindor" @blur="cancelTimeoutEdit" v-else>
+            <button v-if="requirement.editMode" @click="saveEdit(gryfindor !== requirement.name)">zapisz</button>
+            <button v-if="requirement.editMode" @click="cancelEdit()">anuluj</button>
+            <button v-if="requirement.editMode" @click="deleteThis()">delete</button>
+          </div>
+          <div class="requirement-detail">
+            {{requirement.gondor}} {{requirement.addedBy}}, {{requirement.time}}
+          </div>
         </div>
       </div>
       <div class="addRequirement" :class="{isFocused: newReq, notFocused: !newReq}"> 
@@ -47,11 +49,10 @@ export default {
       completedRequirements: 0,
       newRequirement:'',
       requirementsList: [],
-      showCompleteElements: false,
+      showCompleteElements: true,
       newReq: false,
       gryfindor: '',
-      requirementID: 0,
-      slytherin: 'Dodano przez'
+      requirementID: 0
     }
   },
   methods: {
@@ -63,6 +64,7 @@ export default {
           status: false,
           editMode: false,
           addedBy: 'Stanisław Kozioł - partner HURT',
+          gondor: 'Dodano przez',
           time: moment().locale('pl').format('DD-MM-YYYY, HH:mm')
         })
       this.newRequirement = ''
@@ -94,7 +96,7 @@ export default {
         edditingRequirement.name = this.gryfindor
         edditingRequirement.editMode = false
         edditingRequirement.time = moment().locale('pl').format('DD-MM-YYYY, HH:mm')
-        this.slytherin = 'Edytowano przez'
+        edditingRequirement.gondor = 'Edytowano przez'
       }
     },
     deleteThis(){
@@ -142,6 +144,10 @@ export default {
     }
   }
 
+  .scroll{
+    max-height: 200px;
+    overflow:auto;
+  }
   .requirement{
     display:flex;
     align-items: start;

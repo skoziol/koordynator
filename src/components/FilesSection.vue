@@ -1,6 +1,7 @@
 <template>
-  Załączniki
     <div class="file-section">
+    <h3>Załączniki</h3>
+    <div class="scroll">
       <div class="file" v-for="file in fileList" :key="file">
         <img src="@/assets/doc.png" width="80" height="60" style="margin:0 10px">
         <div class="about">
@@ -9,15 +10,13 @@
           </span>
           <div class="creator">
            Dodano: {{file.time}},
-            <span style="text-decoration:underline" @click="editFile(file.id)">Edytuj</span>
             <span style="text-decoration:underline" @click="deleteFile(file.id)">Usuń</span>
           </div>
           <span class="who">{{file.addedBy}}</span>
         </div>
       </div>
-      <div class="addFile">
-        <button @click="addFile()">Add</button>
-      </div>
+    </div>
+    <button @click="addFile()">Dodaj załączniki</button>
   </div>
 </template>
 
@@ -55,31 +54,48 @@ export default {
 
 <style lang="scss" scoped>
 .file-section{
-  flex-grow:1;
+  max-height: 500px;
+  flex-basis: 30%;
+  margin: 0 20px;
   display:flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
 
-  .file{
-    display:flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: min-content;
-    width: 100%;
-    margin: 10px 0;
+  .scroll{
+      overflow: auto;
+      width: 100%;
 
-    .about{
+
+    .file{
       display:flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
+      align-items: center;
+      justify-content: flex-start;
+      height: min-content;
+      width: 100%;
+      margin: 10px 0;
+
+      .about{
+        display:flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
     }
   }
   
 
-  .addFile{
-  display:flex;
-  } 
+  button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: lightgray;
+    font-size: 16px;
+    color: black;
+    min-height: 30px;
+    width: 150px;
+    margin: 10px 2px;
+  }
 }
 </style>

@@ -5,7 +5,7 @@
       <span class="subtitle">
         Dodano przez {{creator}}, wyznaczony ekspert:  {{expert}}, koordynator: {{coordinator}}
       </span>
-      <div class="slider-section">A <Slider :height="30" style="margin: 0 10px;"/>B</div>
+      <div class="slider-section">BST <Slider :height="30" style="margin: 0 10px;"/>Projekt</div>
     </header>
     <div class="body">
       <div class="column section_40">
@@ -16,11 +16,13 @@
         <CommentSection/>
       </div>
       <div class="column">
-        <button class="sample">-> Odeślij do projektu</button>
-        <button class="sample">Zakończ i zaakceptuj</button>
-        <button class="sample">Zakończ i odrzuć</button>
-        <button class="sample">Sample</button>
-        <button class="sample">Sample</button>
+        <div class="custom-buttons">
+          <button class="sample">-> Odeślij do projektu</button>
+          <button class="sample">Zakończ i zaakceptuj</button>
+          <button class="sample">Zakończ i odrzuć</button>
+          <button class="sample">Sample</button>
+          <button class="sample">Sample</button>
+        </div>
         <FilesSection/>
       </div>
     </div>
@@ -70,7 +72,11 @@ export default {
 
       .title{
         font-size: 30px;
-        margin-right: 20px;
+        margin: 0 20px;
+      }
+
+      .subtitle{
+        flex-grow:1;
       }
 
       .slider-section {
@@ -90,7 +96,6 @@ export default {
         display:flex;
         flex-direction: column;
         flex-basis: 30%;
-        border: 1px lightgrey solid;
         height:100%;
 
         &+.column{
@@ -99,6 +104,20 @@ export default {
 
         &.section_40{
           flex-basis: 40% !important;
+        }
+
+        .custom-buttons{
+          padding-top: 50px;
+          flex-grow:1;
+          width:95%;
+
+          button{
+            display:flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 500;
+            width: 100%;
+          }
         }
       }
     }
