@@ -1,26 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Popup msg="Welcome to Your Vue.js App"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Popup from './components/Popup.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Popup
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang='scss'>
+body{
+  background: grey;
+
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    display:flex;
+    align-content: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+    .popup{
+      box-shadow: 0px 10px 10px 1px rgba(0,0,0,0.15);
+      height: 90vh;
+      width: 90vw;
+    }
+  }
 }
 </style>
