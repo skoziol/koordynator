@@ -12,17 +12,19 @@
       <div class="task" v-for="task in taskList" :key="task" :class="{hide: !showCompleteElements && task.status}">
         <input ref="taskCheckbox" type="checkbox" v-model="task.status" @change="taskCompeted(task.status)">
         <span :class="{'line-through': task.status}" v-if="!task.editMode" @click="editTask(task.id)">{{task.name}}</span>
-        <input type="text" v-model="mordor" v-else>
+        <input type="text" v-model="mordor" class="mordor" @blur="cancelTimeoutEdit"  v-else>
         <button v-if="!task.editMode" @click="attachExpert">przypisz do experta</button>
         <button v-if="task.editMode" @click="saveEdit(mordor !== task.name)">zapisz</button>
         <button v-if="task.editMode" @click="cancelEdit()">anuluj</button>
+        <button v-if="task.editMode" @click="deleteThis()">delete</button>
       </div>
       <div class="addTask" :class="{isFocused: newTask, notFocused: !newTask}">
         <input type="text" placeholder="Dodaj zadanie" v-model="newTaskName" @focus="newTask = true" v-show="!newTask">
         <textarea v-show="newTask" @show="focus" rows="4" v-model="newTaskName"></textarea>
         <div class="row">
           <button @click="addTask()" :class="{active: newTaskName.length > 0}" v-show="newTask">Dodaj</button>
-          <button @click="newTask = false; newTaskName='';" v-show="newTask">Anuluj</button></div>
+          <button @click="newTask = false; newTaskName='';" v-show="newTask">Anuluj</button>
+        </div>
       </div>
   </div>
 </template>
@@ -73,12 +75,19 @@ export default {
       edditingTask.editMode = false
       this.mordor = ''
     },
+    cancelTimeoutEdit(){
+      setTimeout(()=>this.cancelEdit(), 50)
+    },
     saveEdit(isChange){
       if(isChange){
         const edditingTask = this.taskList.find(t => t.editMode === true)
         edditingTask.name = this.mordor
         edditingTask.editMode = false
       }
+    },
+    deleteThis(){
+      const deleteTask = this.taskList.find(t => t.editMode === true)
+      this.taskList.splice(this.taskList.indexOf(deleteTask), 1)
     }
   }
 }
@@ -99,7 +108,11 @@ export default {
     }
 
     button{
-      height: 20px;
+      height: 30px;
+      display:flex;
+      font-size:16px;
+      align-items: center;
+      justify-content: center;
     }
   }
 

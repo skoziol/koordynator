@@ -21,7 +21,6 @@
         <button class="sample">Zakończ i odrzuć</button>
         <button class="sample">Sample</button>
         <button class="sample">Sample</button>
-
         <FilesSection/>
       </div>
     </div>
